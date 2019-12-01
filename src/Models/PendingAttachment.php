@@ -51,6 +51,7 @@ class PendingAttachment extends Model
             'attachment' => $this->attachment,
             'disk' => $field->disk,
             'url' => Storage::disk($field->disk)->url($this->attachment),
+            'unique_id' => $this->unique_id
         ]);
 
         $this->delete();
