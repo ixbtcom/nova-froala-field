@@ -21,10 +21,10 @@ class FroalaUploadController extends Controller
                 abort(404);
             });
 
-        return response()->json(['link' => call_user_func(
+        return response()->json(call_user_func(
             $field->attachCallback,
             $request
-        )]);
+        ));
     }
 
     /**
