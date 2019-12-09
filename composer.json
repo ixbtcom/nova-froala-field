@@ -1,7 +1,6 @@
 {
     "name": "froala/nova-froala-field",
     "description": "A Laravel Nova Froala WYSIWYG Editor Field.",
-    "version": "dev-ixbt",
     "keywords": [
         "laravel",
         "nova",

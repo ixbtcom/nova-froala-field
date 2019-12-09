@@ -2,6 +2,7 @@
 
 namespace Froala\NovaFroalaField;
 
+use App\CommonTools;
 use Froala\NovaFroalaField\Handlers\AttachedImagesList;
 use Froala\NovaFroalaField\Handlers\DeleteAttachments;
 use Froala\NovaFroalaField\Handlers\DetachAttachment;
@@ -51,7 +52,7 @@ class Froala extends Trix
 
         $this->withMeta([
             'options' => config('nova.froala-field.options', []) + $uploadLimits,
-            'draftId' => Str::uuid(),
+            'draftId' => CommonTools::genDraftId(),
             'attachmentsDriver' => config('nova.froala-field.attachments_driver'),
         ]);
     }
