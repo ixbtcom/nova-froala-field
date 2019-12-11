@@ -204,8 +204,8 @@ class Froala extends Trix
      *
      * @return string|null
      */
-    /*public function getStoragePath()
+    public function getStoragePath()
     {
         return '/';
-    }*/
+    }
 }
