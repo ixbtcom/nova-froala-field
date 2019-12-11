@@ -104,6 +104,16 @@ class Froala extends Trix
     /**
      * Specify that file uploads should not be allowed.
      */
+    public function withModelName($prefix = null)
+    {
+        $this->model_name = $prefix;
+        return $this;
+    }
+    public function withDraftId($model_draft_id = 'temp')
+    {
+        $this->model_draft_id = $model_draft_id;
+        return $this;
+    }
     public function withFiles($disk = null, $path = '/')
     {
         $this->withFiles = true;

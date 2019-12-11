@@ -2,12 +2,14 @@
 
 namespace Froala\NovaFroalaField\Handlers;
 
+use App\CustomPathGenerator;
 use Froala\NovaFroalaField\Froala;
 use Froala\NovaFroalaField\Models\PendingAttachment;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
 use Spatie\ImageOptimizer\OptimizerChainFactory;
+use Carbon\Carbon;
 
 class StorePendingAttachment
 {
@@ -24,9 +26,12 @@ class StorePendingAttachment
      * @param  \Froala\NovaFroalaField\Froala  $field
      * @return void
      */
+
+
     public function __construct(Froala $field)
     {
         $this->field = $field;
+
     }
 
     /**
@@ -39,20 +44,18 @@ class StorePendingAttachment
     {
         $this->abortIfFileNameExists($request);
 
+
+        $originalName = $request->attachment->getClientOriginalName();
         $attachment = PendingAttachment::create([
             'draft_id' => $request->draftId,
-            'attachment' => config('nova.froala-field.preserve_file_names')
-                ? $request->attachment->storeAs(
-                    '/',
-                    $request->attachment->getClientOriginalName(),
-                    $this->field->disk
-                ) : $request->attachment->store('/', $this->field->disk),
+            'original_name' => $originalName,
+            'attachment' => $request->attachment->store(CustomPathGenerator::getPathFromData($this->field->model_draft_id,$this->field->model_name, Carbon::now()), $this->field->disk),
             'disk' => $this->field->disk,
         ])->attachment;
 
-        $this->imageOptimize($attachment);
+        $widthdata = getimagesize(Storage::disk($this->field->disk)->path($attachment));
 
-        return Storage::disk($this->field->disk)->url($attachment);
+        return ['link' => Storage::disk($this->field->disk)->url('xoptx/'.$attachment), 'original-width' => $widthdata[0],'original-height' => $widthdata[1],'original-path' => $attachment, 'original-disk' => $this->field->disk, 'original-id' => $request->draftId, 'original-name' => $originalName,'loaded' => 'froala','draft' => ($this->field->model_draft_id ? false:true)];
     }
 
     protected function abortIfFileNameExists(Request $request): void
