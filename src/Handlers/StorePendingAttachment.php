@@ -55,7 +55,7 @@ class StorePendingAttachment
 
         $widthdata = getimagesize(Storage::disk($this->field->disk)->path($attachment));
 
-        return ['link' => Storage::disk($this->field->disk)->url('/s/img/x780x/'.$attachment), 'original-width' => $widthdata[0],'original-height' => $widthdata[1],'original-path' => $attachment, 'original-disk' => $this->field->disk, 'original-id' => $request->draftId, 'original-name' => $originalName,'loaded' => 'froala','draft' => ($this->field->model_draft_id ? false:true)];
+        return ['link' => Storage::disk($this->field->disk)->url($attachment).'?w=740', 'original-width' => $widthdata[0],'original-height' => $widthdata[1],'original-path' => $attachment, 'original-disk' => $this->field->disk, 'original-id' => $request->draftId, 'original-name' => $originalName,'loaded' => 'froala','draft' => ($this->field->model_draft_id ? false:true)];
     }
 
     protected function abortIfFileNameExists(Request $request): void
