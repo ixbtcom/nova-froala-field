@@ -52,7 +52,7 @@ class Froala extends Trix
 
         $this->withMeta([
             'options' => config('nova.froala-field.options', []) + $uploadLimits,
-            'draftId' => CommonTools::genDraftId(),
+            'draftId' => Str::uuid(),
             'attachmentsDriver' => config('nova.froala-field.attachments_driver'),
         ]);
     }
