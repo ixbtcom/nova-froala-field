@@ -114,14 +114,22 @@ class Froala extends Trix
         $this->model_draft_id = $model_draft_id;
         return $this;
     }
-    public function withFiles($disk = null, $path = '/')
+    public function datadisk($datadisk)
+    {
+        $this->datadisk = $datadisk;
+
+        return $this;
+    }
+    public function withFiles($disk = null, $datadisk = 'gt_data', $path = '/')
     {
         $this->withFiles = true;
 
         if (nova_version_at_least('2.7.0')) {
             $this->disk($disk)->path($path);
+            $this->datadisk($datadisk)->path($path);
         } else {
             $this->disk($disk);
+            $this->datadisk($datadisk);
         }
 
         if (config('nova.froala-field.attachments_driver', self::DRIVER_NAME) !== self::DRIVER_NAME) {

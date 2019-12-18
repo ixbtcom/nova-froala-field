@@ -43,7 +43,7 @@ class AttachedImagesList
             $url = $Storage->url($file);
             $images[] = [
                 'url' => $url,
-                'thumb' => $url,
+                'thumb' => $url.'?w=240',
             ];
         }
 
