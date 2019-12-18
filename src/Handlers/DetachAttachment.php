@@ -2,6 +2,7 @@
 
 namespace Froala\NovaFroalaField\Handlers;
 
+use App\Media;
 use Froala\NovaFroalaField\Models\Attachment;
 use Illuminate\Http\Request;
 
