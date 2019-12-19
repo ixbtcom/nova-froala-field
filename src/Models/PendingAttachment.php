@@ -45,14 +45,7 @@ class PendingAttachment extends Model
      */
     public function persist(Froala $field, $model)
     {
-        $datadisk = $field->disk;
-        $mediacollection = 'pubimages';
-        if(substr($this->attachment->getMimeType(),0,5) != 'image') {
-            $datadisk = $field->datadisk;
-            $urladd = '';
-            $mediacollection = 'pubdata';
-        }
-        $model->addMediaFromDisk($this->attachment,$datadisk)->withCustomProperties(['publication_draft_id' => $model->publication_draft_id, 'original_name' => $this->original_name,'media_draft_id' => $this->draft_id])->toMediaCollection($mediacollection);
+        $model->addMediaFromDisk($this->attachment,$field->disk)->withCustomProperties(['publication_draft_id' => $model->publication_draft_id, 'original_name' => $this->original_name,'image_draft_id' => $this->draft_id])->toMediaCollection('publication');
         /*Attachment::create([
             'attachable_type' => get_class($model),
             'attachable_id' => $model->getKey(),
